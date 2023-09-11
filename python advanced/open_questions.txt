@@ -1,0 +1,16 @@
+1. Functions Magic \ Functions Special are functions built in to every class we build, 4 examples:
+- __init__ - function that builds an object from our class schema.
+- __del__ - destractor function of an object (deletes it).
+- __str__ - function that transfroms the object into string value.
+- __eq__ - preforms a comparison between two objects of the class.
+
+2. if we dont initiate a __str__ function and we try to print out an object, it will print the name of the class and the place in memory of the object.l
+3. if we dont initiate a __eq__ function it will compare the two objects place in memory.
+
+4. Operator overloading is a mathematical symbol that represents a magic method, so when we use the mathematical Operator it will go to the required magic method.
+5d. my output is: comparison: False
+    print: prints out object place in memory and class name
+    + Operator: unsupported operand type(s) for +: 'Point' and 'Point'
+
+    We have those issues because we didnt build the needed magic methods
+    to fix those issues we need to build magic __str__, __eq__, __add__ methods.
