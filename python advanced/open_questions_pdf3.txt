@@ -1,0 +1,23 @@
+1. 
+    a. decorators is a way to wrap actions with pre determined actions we want from beforehand,
+       if we want to print out a log every time we use the function we can make a log decorator.
+    b. decorators work, by building a function and using the actions we want between the actions we want.
+    c. function pointers are variables that contain a function inside.
+    d. when we build a decorator, if we want to call a function inside, we dont know the amount of arguments this function need, and beside this, we want that the wrapper function will be invisible to 
+       the code user, so we will use args, kwargs to solve this program.
+    e. class inheritance is a wrapper of a class so when we inherit it will add the class we inherit but it will be invisible to us.
+    g. class decorator is a way to add a class onto a function so we can wrap functions with functions inside a class, just @wrapp classname above the function. 
+    
+
+2. 
+   a. iterators is every object we can iterate through using a for loop.
+   b. list, tuple, dictionary are objects with type iterator.
+   c. __del__ func in an object deletes the object and releases it from the memory.
+   d. if we want a object to be iterable we need to initialize __iter__ function and __next__ function.
+
+
+3.
+   a. generator functions are functions without return value, instead they use yield, they return values that can change each time.
+   b. generator functions can be helpful if you want to use the same function in different parts in the code if the function uses reference of variables, another use case is to save place in the memory because we dont need to initialize a var each time we ru the function.
+   c. if we save a generator function in a var , we can use it as an iterator and run the yields in a for loop.
+   d. yield is different from return because return can only return one value and yield can return different values each time.(iterator)
