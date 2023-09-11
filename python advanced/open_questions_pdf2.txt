@@ -1,0 +1,14 @@
+1. In python there will be times we will build a function but we don't know the amount of parameters ahead of time, 
+   For example the python print function, we can add multiple parameters and the function will work every time, 
+   another example is that if we want to build a function that works on objects but without knowing the amount beforehand.
+   last is example is a wrapper function.
+
+2. *args - this way is to pass unlimited arguments into a function, *args will only pass the values in a tuple into the function.
+
+3. **kwargs - this way is to pass unlimited arguments into a function, unlike args, **kwargs will pass values and the variable names inside the function in a dictionary format.
+
+4. the diffrence between args and kwargs is that args pass only values and kwargs pass variable names and values, we can use both in the same function change the way we handle those variables.
+
+5. packing is taking multiple variables that are inputted into a function and packing them inside a tuple/dictionary. unpacking is a way of taking those tuples/ dictionary's and turn them into a list of parameters inside a functions.
+
+6. usecase for unpacking is if we want to merge two list we will unpack those two lists in a new list, usecase for packing is if we want to build a number array of inputs into a new list we will pack the numbers into a new list in a function.  
