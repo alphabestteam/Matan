@@ -1,0 +1,17 @@
+1.
+    a. code in python runs line by line, threading is a way to handle and make tasks simultaneously(run code together).
+    b. to use threads, we will use the threading library.
+    c. requests is a library that handles http requests. it gives us a way to make http requests and download response, We will use it over sockets because it provides much more functionality, making the task of using a web API much easier
+    e. thread lock is a way to prevent the next thread to run without an action we want to complete, so we thread lock , do the action and thread release after it.
+
+2. 
+    a. sockets is a way to transfer data between two computers in a very simple way, it is a way to bind two computers and send receive data between them.
+    b. server client is a way of transferring data between a client to a server and applying logic to the data.
+        client server works by these steps:
+        -server creates a socket and binds to an ip address and port.
+        -server will start to listen() on this specific port for a connection.
+        -client will create a socket and will connect to a ip address and port.
+        -host will sendall() to send data.
+        -server will recv() to receive data and vice versa.
+    c. the constructor will receive two parameters , ip address family(ipv4, ipv6) and data transfer protocol(tcp, udp).
+    
