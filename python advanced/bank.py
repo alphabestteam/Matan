@@ -38,7 +38,6 @@ class Bank:
 
         for i in range(0, len(self.costumers)):
             if self.costumers[i].name == name and self.costumers[i].account_number == account_number:
-                print("here")
                 self.costumers[i].total_balance += amount
                 place = i
                 flag = True
@@ -70,10 +69,10 @@ class Bank:
         my_socket.bind((ip_addr, port))
         my_socket.listen()
         print("Waiting for connection...")
-        conn, addr = my_socket.accept()
-        print("connected")
 
         while True:
+            conn, addr = my_socket.accept()
+            print("connected")
             conn.sendall(
                 bytes("(1) Open a new account \n(2) Deposit/ Withdraw \n(3) Send money".encode("utf-8"))
             )
