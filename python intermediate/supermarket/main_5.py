@@ -1,15 +1,18 @@
-from classes import Product, Costumer, Register
+
+
+from product_class import Product
+from costumer_class import Costumer
+from register_class import Register
 import json
 
 
 def main():
     today_register = Register()
-    random_costumer = Costumer("matan", [], 0)
+    random_costumer = Costumer("matan", 0)
     random_costumer.add_product(Product("milk", 12, 3))
     random_costumer.remove_products("milk", 2)
     random_costumer.add_product(Product("cariot", 20, 5))
     today_register.checkout_costumer(random_costumer)
-    print(random_costumer.shopping_list)
     today_register.print_summary()
 
     formated_costumer = []
@@ -30,13 +33,10 @@ def main():
         count += 1
 
     # final file for costumer:
-
-    my_products = random_costumer.shopping_list
-
     with open("items/final", "w") as file:
         file.write(f"final price: {random_costumer.final_price} \n")
-        for index in range(0, len(my_products), 2):
-            file.write(f"{my_products[index]},  amount: {my_products[index + 1]} \n")
+        for index in range(0, len(random_costumer.products)):
+            file.write(f"{random_costumer.products[index].name},  amount: {random_costumer.products[index].quantity} \n")
 
 
 if __name__ == "__main__":
