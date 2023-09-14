@@ -1,0 +1,22 @@
+Python intermediate:
+
+1.	Functions is a way to split code into blocks and run the code blocks in other places in the code, codes are very useful because you most of the time in coding you will see a code that is repetitive, so for this purpose you can build your code more efficiently with functions.
+
+2.	Every function that we build will have a value that will be returned when the function is done running, this value is called “return value”. For example a function that its purpose is to sum 2 numbers, we sum those 2 numbers into a new var and we return it, now the function return value is the sum of the two numbers.
+
+3.	When using functions, we have two ways the computer can refer to passed values -> “pass by value” and “pass by reference”.
+Pass by reference: the variable is passed into the function and the actions that we make on this variable is affecting the variable outside of the function scope.
+Pass by value: only the value of the variable is passed into the function so any changes made to the variable is effecting only the scope of the function.
+
+4.	In python we can initiate a variable into 3 different scopes:
+-	Local
+-	Global
+-	Nonlocal
+Local variables are variables we declare inside a function and can only be used inside the function, the are destroyed after the function stops running.
+Global variables are variables that can be accessed inside or outside of the function the stay alive all the running time of the code.
+Nonlocal is used for when the scope of a nested function is not defined.
+
+
+9. recursion is a function that calls itself in order to complete the task
+b. we wll want to use a recursion when we can break down a problem ino smaller repetitive problems.
+c. loops are more efficient because recursion can cause slow speeds because they make a lot function calls.
