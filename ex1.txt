@@ -1,0 +1,18 @@
+1. no-sql db is a approach to database with only one data structure with no need of a schema.
+
+2.  - advantages:
+        - Allows for rapid scalability to manage large and unstructured data sets.
+        - Handle large volumes of data at high speed with a scale-out architecture.
+        - Allows for flexible schemas for data collecting.
+
+    - disadvantages:
+        - NoSql offer limited query capability and complicated for data withdraws
+        - NoSQL have no data consistency, there may be lag time between when data is written and to when its available for retrieval.
+        -Lack  of Standardization -> Every Db is different and make a hard time for developers to learn and work with No sql.
+
+3. Database is like the database in sql
+, the differences appear when dive into the database, Collection is like a table and a database can contain multiple collections, each collection contain documents
+, documents is like a row of data in sql and contains the data we want.  
+
+4. every document need to have a unique id to differ it from other documents that could contain the same data, if we dont specify the id of the document mongodb will make one for us
+, if we do specify it needs to be unique otherwise mongodb will throw us an error.
