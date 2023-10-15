@@ -142,17 +142,20 @@ function markerClickEvent(e){
 RECEIVER_IP = "127.0.0.1:8000"
 BASE_URL ="http://" + RECEIVER_IP + "/api/targets/" 
 
-function updateTarget(target){
+function updateTarget(target) {
     sendData(BASE_URL + "UpdateTarget/", "PUT", target)
-        .then(response=> response.text())
-        .then(data=> {
-		console.log(data);
-		alertControl("success");
-	})
-        .catch(err=> {
-		console.log(err);
-		alertControl("danger");
-	})
+        .then(response => {
+            if (response.status === 200) {
+                return response.text();
+            } else {
+                console.error('Request failed with status: ' + response.status);
+                return Promise.reject('Request failed with status: ' + response.status);
+            }
+        })
+        .then(data => {
+            console.log(data);
+            alertControl("success");
+        });
 }
 
 function addTarget(target){
