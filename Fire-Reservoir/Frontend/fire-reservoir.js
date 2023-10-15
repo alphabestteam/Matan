@@ -170,7 +170,7 @@ function addTarget(target){
 function getTargets(){
     const request = new Request(BASE_URL + "AllTargets/",{
         method: "GET",
-        //mode: "no-cors",
+        // mode: "no-cors",
         cache: "default",
     });
     fetch(request)

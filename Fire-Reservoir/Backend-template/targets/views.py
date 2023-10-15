@@ -22,14 +22,31 @@ def add_target(request):
             was_target_destroyed=data["was_target_destroyed"],
             target_id=data["target_id"]
         )
-        target.save()
-        return JsonResponse({"message": "Target created successfully"})
-    else:
-        return JsonResponse({"message": "Invalid request method"}, status=400)
+        serializer = TargetSerializer(data=data)
+        if serializer.is_valid():
+            target.save()
+            serializer.save()
+            return JsonResponse({"message": "Target created successfully"})
+        else:
+            return JsonResponse({"message": "Invalid request method"}, status=400)
 
 # @csrf_exempt
 # def update_target(request):
 #     # Implement here an update function
 
-# def all_targets(request):
-#     # Implement here a get all targets function
+def all_targets(request):
+    # Implement here a get all targets function
+    targets = Target.objects.all()
+    target_data = []
+    for target in targets:
+        target_data.append({
+            'name': target.name,
+            'attack_priority': target.attack_priority,
+            'longitude': target.longitude,
+            'latitude': target.latitude,
+            'enemy_organization': target.enemy_organization,
+            'target_goal': target.target_goal,
+            'was_target_destroyed': target.was_target_destroyed,
+            'target_id': target.target_id,
+        })
+    return JsonResponse({'targets': target_data})
