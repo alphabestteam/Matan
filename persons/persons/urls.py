@@ -16,14 +16,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from person.views import get_all_people, add_person, delete_person, update_person, add_parent
+from person.views import get_all_people, add_person, delete_person, update_person, add_parent, connect_kid, view_parent, rich_kids, get_parents_of_person, get_kids, get_grandparents
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/getAllPeople', get_all_people, name='getAllPeople'),
     path('api/addPerson/', add_person, name='addPerson'),
-    path('api/removePerson/<int:id>', delete_person, name='removePerson'),
+    path('api/removePerson/<int:id>/', delete_person, name='removePerson'),
     path('api/updatePerson/', update_person, name='updatePerson'),
     path('api/addParent/', add_parent, name='addParent'),
+    path('api/connectKid/', connect_kid, name='connectParent'),
+    path('api/viewParent/<int:id>/', view_parent, name='viewParent'),
+    path('api/richKids/', rich_kids, name='richKids'),
+    path('api/parentFinder/<int:id>/', get_parents_of_person, name='parentFinder'),
+    path('api/kidFinder/<int:id>/', get_kids, name='kidFinder'),
+    path('api/grandparentFinder/<int:id>/', get_grandparents, name='get_grandparents'),
 ]
+ 
