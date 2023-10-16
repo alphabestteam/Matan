@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from person.views import get_all_people, add_person, delete_person, update_person
+from person.views import get_all_people, add_person, delete_person, update_person, add_parent
 
 
 urlpatterns = [
@@ -25,4 +25,5 @@ urlpatterns = [
     path('api/addPerson/', add_person, name='addPerson'),
     path('api/removePerson/<int:id>', delete_person, name='removePerson'),
     path('api/updatePerson/', update_person, name='updatePerson'),
+    path('api/addParent/', add_parent, name='addParent'),
 ]

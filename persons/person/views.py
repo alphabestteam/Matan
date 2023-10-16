@@ -1,8 +1,8 @@
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
-from .models import Person
-from .serializers import PersonSerializer
+from .models import Person, Parent
+from .serializers import PersonSerializer, ParentSerializer
 import json
 
 
@@ -89,3 +89,49 @@ def update_person(request):
     else:
         return Response("person isn't found", status=400)
     
+
+@api_view(["POST"])
+@parser_classes([JSONParser])
+def add_parent(request):
+    """
+    This function adds a parent to db or updates it
+    """
+    data = json.loads(request.body.decode("utf-8"))
+    try:
+        parent = Parent.objects.get(id=data["id"])
+    except Parent.DoesNotExist:
+        # Handle the case where the person does not exist
+        parent = None
+
+    if not parent:
+        serializer = ParentSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=200)
+        else:
+            return Response(serializer.errors, status=400)
+    else:
+        serializer = ParentSerializer(parent, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=200)
+        else:
+            return Response(serializer.errors, status=400)
+        
+
+@api_view(["POST"])
+def delete_parent(request, id):
+    """
+    this function deletes parent from db
+    """
+    try:
+        parent = Parent.objects.get(id=id)
+    except Parent.DoesNotExist:
+        # Handle the case where the person does not exist
+        parent = None
+
+    if parent:
+        parent.delete()
+        return Response(status=200)
+    else:
+        return Response("parent not found", status=400)
