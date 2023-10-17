@@ -5,6 +5,7 @@ from rest_framework.renderers import JSONRenderer
 from .models import Person, Parent
 from .serializers import PersonSerializer, ParentSerializer, ConnectKidSerializer
 import json
+from django.db.models import Q, Avg, Count, Max, Sum
 
 
 @api_view(["GET"])
@@ -261,3 +262,67 @@ def get_brothers(request, id):
 
     serializer = PersonSerializer(brothers, many=True)
     return Response(serializer.data)
+
+
+@api_view(["GET"])
+def qset(request, num):
+
+    if num == 1:
+        parents_info = Parent.objects.values('name', 'date_of_birth', 'city', 'work_place', 'salary')   
+        for parent in parents_info:
+            print(parent)
+
+    if num == 2:
+        query_set = Parent.objects.filter(work_place = "Google")
+        count = query_set.count()
+        print(count)
+
+    if num == 3:
+        query_set = Parent.objects.filter(name = "Roee")[0]
+        kids = query_set.kids.all().values('name', 'date_of_birth', 'city')
+        print(kids)
+
+    if num == 4:
+        query_set = Person.objects.filter(Q(name__icontains = "i")).values('name', 'date_of_birth', 'city')
+        print(query_set)
+
+    if num == 5:
+        query_set = Person.objects.filter(city__in=["Raanana", "Tel Aviv"]).values('name', 'date_of_birth', 'city')
+        print(query_set)
+
+    if num == 6:
+        average_salary = Parent.objects.aggregate(avg_salary=Avg('salary'))
+        print(average_salary)
+
+    if num == 7:
+        parents_with_children_count = Parent.objects.annotate(
+        children_count=Count('kids')).values('name', 'children_count')
+
+        for parent in parents_with_children_count:
+            print(parent)
+
+    if num == 8:
+        total_kids = Parent.objects.aggregate(total_kids=Count('kids'))
+        print(total_kids)
+
+    if num == 9:
+        richest_parent = Parent.objects.aggregate(max_salary=Max('salary'))
+        max_salary = richest_parent['max_salary']
+        richest_parents = Parent.objects.filter(salary=max_salary)
+        richest_parent = richest_parents.first()
+
+        print(richest_parent.name, richest_parent.salary)
+
+    
+    if num == 10:
+        kids = Person.objects.filter(parents__salary__gt=0)
+        kids = kids.annotate(total_parent_salary=Sum('parents__salary'))
+        kids = kids.filter(total_parent_salary__gt=50000)
+
+        for kid in kids:
+            print(kid.name, kid.city)
+
+
+    return Response(status=200)
+
+
