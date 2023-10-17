@@ -5,6 +5,7 @@ from rest_framework.renderers import JSONRenderer
 from .models import Person, Parent
 from .serializers import PersonSerializer, ParentSerializer, ConnectKidSerializer
 import json
+from django.db.models import Q
 
 
 @api_view(["GET"])
@@ -12,11 +13,9 @@ def get_all_people(request):
     """
     function that returns all of the people in the db§
     """
-    arr = []
-    for item in Person.objects.all():
-        serializer = PersonSerializer(item)
-        arr.append(serializer.data)
-    return Response(arr, status=200)
+    all = Person.objects.all()
+    serializer = PersonSerializer(all)
+    return Response(serializer, status=200)
 
 
 @api_view(["POST"])
@@ -40,7 +39,7 @@ def add_person(request):
         else:
             return Response(serializer.errors, status=400)
     else:
-        serializer = PersonSerializer(person, data=data, partial=True)
+        serializer = PersonSerializer(person, data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(status=200)
@@ -57,13 +56,10 @@ def delete_person(request, id):
         person = Person.objects.get(id=id)
     except Person.DoesNotExist:
         # Handle the case where the person does not exist
-        person = None
-
-    if person:
-        person.delete()
-        return Response(status=200)
-    else:
         return Response("person not found", status=400)
+
+    person.delete()
+    return Response(status=200)
 
 
 @api_view(["POST"])
@@ -77,18 +73,14 @@ def update_person(request):
         person = Person.objects.get(id=data["id"])
     except Person.DoesNotExist:
         # Handle the case where the person does not exist
-        person = None
-
-    if person:
-        serializer = PersonSerializer(person, data=data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=200)
-        else:
-            return Response(serializer.errors, status=400)
-    else:
         return Response("person isn't found", status=400)
 
+    serializer = PersonSerializer(person, data=data, partial=True)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(status=200)
+    else:
+        return Response(serializer.errors, status=400)
 
 @api_view(["POST"])
 @parser_classes([JSONParser])
@@ -111,7 +103,7 @@ def add_parent(request):
         else:
             return Response(serializer.errors, status=400)
     else:
-        serializer = ParentSerializer(parent, data=data, partial=True)
+        serializer = ParentSerializer(parent, data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(status=200)
@@ -128,13 +120,10 @@ def delete_parent(request, id):
         parent = Parent.objects.get(id=id)
     except Parent.DoesNotExist:
         # Handle the case where the person does not exist
-        parent = None
-
-    if parent:
-        parent.delete()
-        return Response(status=200)
-    else:
         return Response("parent not found", status=400)
+
+    parent.delete()
+    return Response(status=200)
 
 
 @api_view(["POST"])
@@ -166,13 +155,10 @@ def view_parent(request, id):
         parent = Parent.objects.get(id=id)
     except Parent.DoesNotExist:
         # Handle the case where the person does not exist
-        parent = None
-
-    if parent:
-        parent_json = ParentSerializer(parent)
-        return Response(JSONRenderer().render(parent_json.data), status=200)
-    else:
         return Response("parent not found", status=400)
+
+    parent_json = ParentSerializer(parent)
+    return Response(JSONRenderer().render(parent_json.data), status=200)
 
 
 @api_view(["GET"])
@@ -180,13 +166,12 @@ def rich_kids(request):
     """
     returns all the rich kids
     """
-    parents = Parent.objects.filter(salary__gt=50000).prefetch_related("kids")
+    parents = Parent.objects.filter(Q(salary__gt=50000) | Q(age__lt=18)).prefetch_related("kids")
     kids = []
 
     for parent in parents:
-        for kid in parent.kids.all():
-            kid_serialized = PersonSerializer(kid)
-            kids.append(kid_serialized.data)
+        kid_serialized = PersonSerializer(parent.kids.all())
+        kids += kid_serialized
 
     return Response(kids, status=200)
 
@@ -240,7 +225,7 @@ def get_grandparents(request, id):
     grandparents = []
 
     for parent in parents:
-        grandparents.append(parent.parents.all())
+        grandparents.append(parent.parents.all().values_list('name', flat=True))
 
     serializer = PersonSerializer(grandparents, many=True)
     return Response(serializer.data)
@@ -257,7 +242,7 @@ def get_brothers(request, id):
     brothers = []
 
     for parent in parents:
-        brothers.append(parent.kids.all())
+        brothers.append(parent.kids.all().values_list('name', flat=True))
 
     serializer = PersonSerializer(brothers, many=True)
     return Response(serializer.data)
