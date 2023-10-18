@@ -12,6 +12,8 @@ from django.db.models import Q, Avg, Count, Max, Sum
 def get_all_people(request):
     """
     function that returns all of the people in the db§
+    time:  0.010687828063964844
+    query_count:  1
     """
     arr = []
     for item in Person.objects.all():
@@ -25,6 +27,8 @@ def get_all_people(request):
 def add_person(request):
     """
     This function adds a person to db or updates it
+    time:  0.014688968658447266
+    query_count:  1
     """
     data = json.loads(request.body.decode("utf-8"))
     try:
@@ -53,6 +57,8 @@ def add_person(request):
 def delete_person(request, id):
     """
     this function deletes Person from db
+    time:  0.0043108463287353516
+    query_count:  1
     """
     try:
         person = Person.objects.get(id=id)
@@ -72,6 +78,8 @@ def delete_person(request, id):
 def update_person(request):
     """
     This function update persons
+    time:  0.00690007209777832
+    query_count:  1
     """
     data = json.loads(request.body.decode("utf-8"))
     try:
@@ -96,6 +104,8 @@ def update_person(request):
 def add_parent(request):
     """
     This function adds a parent to db or updates it
+    time:  0.006392002105712891
+    query_count:  1
     """
     data = json.loads(request.body.decode("utf-8"))
     try:
@@ -124,6 +134,8 @@ def add_parent(request):
 def delete_parent(request, id):
     """
     this function deletes parent from db
+    time:  0.0043108463287353516
+    query_count:  1
     """
     try:
         parent = Parent.objects.get(id=id)
@@ -140,6 +152,10 @@ def delete_parent(request, id):
 
 @api_view(["POST"])
 def connect_kid(request):
+    """
+    time:  0.008362293243408203
+    query_count:  1
+    """
     data = request.data
     person_id = data.get("person_id")
     parent_id = data.get("parent_id")
@@ -162,6 +178,8 @@ def connect_kid(request):
 def view_parent(request, id):
     """
     this function deletes Person from db
+    time:  0.006682872772216797
+    query_count:  1
     """
     try:
         parent = Parent.objects.get(id=id)
@@ -180,6 +198,8 @@ def view_parent(request, id):
 def rich_kids(request):
     """
     returns all the rich kids
+    time:  0.004760026931762695
+    query_count:  1
     """
     parents = Parent.objects.filter(salary__gt=50000).prefetch_related("kids")
     kids = []
@@ -194,7 +214,10 @@ def rich_kids(request):
 
 @api_view(["GET"])
 def get_parents_of_person(request, id):
-    """ """
+    """ 
+    time:  0.0038299560546875
+    query_count:  1
+    """
     request
     try:
         person = Person.objects.get(id=id)
@@ -220,6 +243,10 @@ def get_parents_of_person2(request, id):
 
 @api_view(["GET"])
 def get_kids(request, id):
+    """
+    time:  0.012375116348266602
+    query_count:  1
+    """
     try:
         parent = Parent.objects.get(id=id)
     except Parent.DoesNotExist:
@@ -232,6 +259,10 @@ def get_kids(request, id):
 
 @api_view(["GET"])
 def get_grandparents(request, id):
+    """
+    time:  0.004119157791137695
+    query_count:  1
+    """
     try:
         person = Person.objects.get(id=id)
     except Person.DoesNotExist:
@@ -249,6 +280,10 @@ def get_grandparents(request, id):
 
 @api_view(["GET"])
 def get_brothers(request, id):
+    """
+    time:  0.004249157791137695
+    query_count:  1
+    """
     try:
         person = Person.objects.get(id=id)
     except Person.DoesNotExist:
@@ -258,7 +293,7 @@ def get_brothers(request, id):
     brothers = []
 
     for parent in parents:
-        brothers.append(parent.kids.all())
+        brothers.extend(parent.kids.all())
 
     serializer = PersonSerializer(brothers, many=True)
     return Response(serializer.data)
