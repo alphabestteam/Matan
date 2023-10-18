@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from person.views import get_all_people, add_person, delete_person, update_person, add_parent, connect_kid, view_parent, rich_kids, get_parents_of_person, get_kids, get_grandparents, qset
+from person.views import get_all_people, add_person, delete_person, update_person, add_parent, connect_kid, view_parent, rich_kids, get_parents_of_person, get_kids, get_brothers, get_grandparents, qset, delete_parent
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,6 +31,8 @@ urlpatterns = [
     path('api/parentFinder/<int:id>/', get_parents_of_person, name='parentFinder'),
     path('api/kidFinder/<int:id>/', get_kids, name='kidFinder'),
     path('api/grandparentFinder/<int:id>/', get_grandparents, name='get_grandparents'),
+    path('api/brotherFinder/<int:id>/', get_brothers, name='get_brother'),
     path('api/qset/<int:num>/', qset, name='qset'),
+    path('api/deleteParent/<int:id>/', delete_parent, name='deleteParent'),
 ]
  

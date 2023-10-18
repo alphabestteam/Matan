@@ -258,7 +258,7 @@ def get_brothers(request, id):
     brothers = []
 
     for parent in parents:
-        brothers.append(parent.kids.all())
+        brothers.extend(parent.kids.all())
 
     serializer = PersonSerializer(brothers, many=True)
     return Response(serializer.data)
