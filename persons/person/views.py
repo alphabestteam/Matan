@@ -273,14 +273,13 @@ def qset(request, num):
             print(parent)
 
     if num == 2:
-        query_set = Parent.objects.filter(work_place = "Google")
-        count = query_set.count()
-        print(count)
+        query_set = Parent.objects.filter(work_place = "Google").count()
+        print(query_set)
 
     if num == 3:
-        query_set = Parent.objects.filter(name = "Roee")[0]
-        kids = query_set.kids.all().values('name', 'date_of_birth', 'city')
-        print(kids)
+        query_set = Parent.objects.all().order_by("date_of_birth")
+        result = query_set.all().values('name', 'date_of_birth', 'city')
+        print(result)
 
     if num == 4:
         query_set = Person.objects.filter(Q(name__icontains = "i")).values('name', 'date_of_birth', 'city')
@@ -306,19 +305,12 @@ def qset(request, num):
         print(total_kids)
 
     if num == 9:
-        richest_parent = Parent.objects.aggregate(max_salary=Max('salary'))
-        max_salary = richest_parent['max_salary']
-        richest_parents = Parent.objects.filter(salary=max_salary)
-        richest_parent = richest_parents.first()
-
+        richest_parent = Parent.objects.filter(salary=Parent.objects.aggregate(max_salary=Max('salary'))['max_salary']).first()
         print(richest_parent.name, richest_parent.salary)
 
     
     if num == 10:
-        kids = Person.objects.filter(parents__salary__gt=0)
-        kids = kids.annotate(total_parent_salary=Sum('parents__salary'))
-        kids = kids.filter(total_parent_salary__gt=50000)
-
+        kids = Person.objects.filter(parents__salary__gt=0).annotate(total_parent_salary=Sum('parents__salary')).filter(total_parent_salary__gt=50000)
         for kid in kids:
             print(kid.name, kid.city)
 
