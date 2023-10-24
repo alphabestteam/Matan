@@ -1,0 +1,70 @@
+Request:
+2. we can do it with request.data
+3. if you want to pass parameters with the url https://example.com/resource?param1=value1&param2=value2
+
+Responses:
+4. Response provides a Web browsable API.
+Response can handle native Python primitives such as dict, list and str. However, HTTPResponse only supports str, if you return is dict or list, HTTPResponse will convert them. 
+And you will find the converted str is not what you want.
+
+Views:
+5. Function-Based Views are the traditional and simplest way to define views in Django. They are Python functions that take a request as an argument and return an HTTP response. Here's an example of a function-based view
+   Class-Based Views are an alternative way to define views by using Python classes. They provide a more structured and reusable approach for handling views. CBVs are based on inheritance and mixins, allowing you to extend and customize views by overriding class methods. Django provides a range of built-in generic class-based views for common patterns like listing, detail views, and form handling.
+
+6. def my_view(request):
+    if request.method == 'GET':
+        return HttpResponse("This is a GET request")
+    elif request.method == 'POST':
+        return HttpResponse("This is a POST request")
+
+Serializers:
+7. the save() function in Django determines whether an object is new or existing based on the primary key value, and it handles the database operations accordingly. If the primary key is set (not None), it updates the existing record; otherwise, it creates a new one.
+8. errors = serializer.errors
+    print(errors)
+
+9. raise_exception=True is a way drf raise an exception if the data is not valid it will raise a serializers.ValidationError exception if the data is not valid.
+if not serializer.is_valid():
+        raise exceptions.ValidationError(serializer.errors)
+
+11. i will need to create a serializer for that one field and update the view accordingly.
+
+12. depth is the amount of levels you want to serialize inside the object, if i want the author data to be serialized and available to you i will set depth=1.
+
+14. Read-only fields are included in the API output, but should not be included in the input during create or update operations. Any 'read_only' fields that are incorrectly included in the serializer input will be ignored.
+
+15. SerializerMethodField is a versatile field that allows you to include custom data or calculated values in your serialized data. It is a read-only field, meaning that it can be used to display additional information that doesn't directly correspond to a model field
+
+Serializer Relations:
+
+16. In drf, a SlugRelatedField acts as a translator for related objects, enabling the representation of these objects using user-friendly slugs instead of numerical primary keys.
+if the read_only=False we need to make sure that unique=True
+
+17. select related is essentially a way to query sql join so we can get all the related objects data as well, pre-fetched related will get all related objects using more than one query that will be more useful in a many to many relationship,
+
+18. we need to create a Message serializer:
+
+from rest_framework import serializers
+from .models import Message
+
+class MessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Message
+        fields = ('id', 'content', 'timestamp', 'sender')
+
+and than in the user serializer we will create a field that will call the Message serializer:
+
+from rest_framework import serializers
+from .models import User
+from .serializers import MessageSerializer
+
+class UserSerializer(serializers.ModelSerializer):
+    messages = MessageSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'messages')
+
+than when we will call the user serializer it will automatically add all of the messages.
+
+19. by default writable nested serializers are read_only so if we change data we will need to add the functionality manually, there is a solution on github https://github.com/beda-software/drf-writable-nested/blob/master/README.md
+    that will make the update automatically.
