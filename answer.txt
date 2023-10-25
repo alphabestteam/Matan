@@ -1,0 +1,5 @@
+Nginx is a multifunction web server. it is very high performance and scalable.
+3 advantages:
+-The installation and configuration is very simple via the config file.
+-it has load balancing features
+-it is very fast and the best at serving static files.
