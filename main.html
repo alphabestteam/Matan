@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Speed Typing Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Speed Typing Game</h1>
+        <p>Type the words as fast as you can!</p>
+        <p class="quote-display" id="quote" data-start="false">
+        </p>
+        <input type="text" class="text-input" autocomplete="off" id="input">
+        <br>
+        <button class="start-btn" id="start-btn">Start</button>
+        <p id="timer"></p>
+        <p id="result"></p>
+    </div>
+    <table id="table">
+        <thead>
+        <tr>
+            <td><h2>Rank </h2></td>
+            <td><h2>Words </h2></td>
+            <td><h2>Time </h2></td>
+            <td><h2>WPM </h2></td>
+            <td><h2>Accuracy </h2></td>
+            <td><h2>Score </h2></td>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+    <script src="script.js"></script>
+</body>
+
+</html>
