@@ -27,7 +27,13 @@ const quotes = [
 ];
 
 let charArray = [];
-  
+let running = false;
+let time = 0;
+let interval;
+const timer = document.getElementById("timer");
+
+
+
 
 function getRandomQuote() {
     //implement getting a random quote from the array.
@@ -43,10 +49,9 @@ function startGame() {
     */
     const quote = document.getElementById("quote");
     const randomQuote = getRandomQuote();
-    console.log(quote.dataset.start);
     charArray = [];
 
-    if(quote.dataset.start == "false"){
+    if (quote.dataset.start == "false") {
         for (let char of randomQuote) {
             const element = document.createElement("span");
             element.textContent = char;
@@ -54,9 +59,13 @@ function startGame() {
             charArray.push(element);
         }
         quote.dataset.start = "true";
+    } else {
+        location.reload();
     }
+
+    startStopTimer();
 }
-    
+
 
 function checkInput() {
     //implement checking input, ending the game by calling the endGame() function when needed. 
@@ -78,25 +87,59 @@ function checkInput() {
     }
 
     if (input.length === quoteChars.length) {
-        endGame();
+        endGame(input, quote.innerText);
     }
 }
 
 function countMatchingChars(strA, strB) {
     //helper function used to calculate hits, used for percentage.
+    let strArr = strA.split("");
+    let strBrr = strB.split("");
+    let count = 0;
+
+    for (let i = 0; i < strBrr.length; i++) {
+        if (strArr[i] === strBrr[i]) {
+            count++;
+        }
+    }
+    return count;
 }
 
-function endGame() {
+//-----------------------------------------------------
+function startStopTimer() {
+    if (running) {
+        clearInterval(interval);
+    } else {
+        interval = setInterval(function () {
+            time++;
+            updateDisplay();
+        }, 1000);
+    }
+    running = !running;
+}
+
+
+function updateDisplay() {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    timer.textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+}
+//------------------------------------------------------
+function endGame(input, quote) {
     //stop the timer, calculate elapsed time in seconds
     //in the result element display:
     //  a) how many words were typed
     //  b) in how many seconds it was done
     //  c) the speed (wpm)
     //  d) the accuracy as percentage
-    for(let i = 0; i < charArray.length; i++){
-        
-    }
-    
+    startStopTimer();
+    let greenCount = countMatchingChars(input, quote);
+    let wordCount = input.split(/\s+/).length - 1;
+    const resultElement = document.getElementById("result");
+    resultElement.innerText = `words typed: ${wordCount}
+                               Accuracy: ${Math.floor((greenCount / quote.length) * 100)}%
+                               total time: ${time} seconds
+                               words per minute: ${wordCount / (time / 60)}`;
 }
 
 
