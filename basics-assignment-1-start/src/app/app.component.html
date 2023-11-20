@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <ol>
+        <li>Create two new Components (manually or with CLI): WarningAlert and SuccessAlert</li>
+        <li>Output them beneath each other in the AppComponent</li>
+        <li>Output a warning or success message in the Components</li>
+        <li>Style the Components appropriately (maybe some red/ green text?)</li>
+      </ol>
+      <p>Use external or internal templates and styles!</p>
+      <p>Feel free to create more components, nest them into each other or play around with different types of selectors!</p>
+    </div>
+  </div>
+</div>
+<button mat-button (click)="onClick()" style="background-color: green;">Success</button>
+<button mat-button (click)="onClick1()" style="background-color: red;">Warning</button>
+
+<div *ngIf="indicator === 1">
+    <app-success-alert></app-success-alert>
+    <div>
+        <label for="selectSuccess">Select an option</label>
+        <select id="selectSuccess" [(ngModel)]="selectedNumber" name="selectSuccess" matNativeControl>
+            <option *ngFor="let number of numbers" [value]="number">{{ number }}</option>
+        </select>
+        <div *ngFor="let i of getNumberRange(selectedNumber)">
+            <app-success-alert></app-success-alert>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="indicator === 2">
+    <app-warning-alert></app-warning-alert>
+    <div>
+        <label for="selectWarning">Select an option</label>
+        <select id="selectWarning" [(ngModel)]="selectedNumber" name="selectWarning" matNativeControl>
+            <option *ngFor="let number of numbers" [value]="number">{{ number }}</option>
+        </select>
+        <div *ngFor="let i of getNumberRange(selectedNumber)">
+            <app-warning-alert></app-warning-alert>
+        </div>
+    </div>
+</div>
