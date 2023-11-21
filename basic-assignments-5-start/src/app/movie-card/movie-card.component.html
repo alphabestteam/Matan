@@ -1,0 +1,15 @@
+<div class="card-header bg-dark text-light">
+        <h3 class="mb-0">{{ film.title }}</h3>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Episode {{ film.episode_id }}</h5>
+        <p class="card-text">
+            <strong>Director:</strong> {{ film.director }}<br>
+            <strong>Producer:</strong> {{ film.producer }} <br>
+            <strong>Release Date:</strong> {{film.release_date}}
+        </p>
+        <p class="card-text">
+            <strong>Opening Crawl:</strong><br>
+            {{film.opening_crawl}}
+        </p>
+</div>
