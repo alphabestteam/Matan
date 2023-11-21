@@ -3,26 +3,28 @@
     <label for="username">username</label>
     <input type="text" id="username" formControlName="username" class="input">
   </div>
-  <div *ngIf="myForm.get('username')?.invalid && myForm.get('username')?.touched" class="error">
-    <p *ngIf="myForm.get('username')?.hasError('required')" class="invalid">Username is required</p>
-    <p *ngIf="myForm.get('username')?.hasError('minlength')" class="invalid">2 characters minimum</p>
-    <p *ngIf="myForm.get('username')?.hasError('maxlength')" class="invalid">20 characters maximum</p>
+  <div *ngIf="myForm.get('username')?.invalid && myForm.get('username')?.touched" class="invalid">
+    <p *ngIf="myForm.get('username')?.hasError('required') || myForm.get('username')?.hasError('minlength') || myForm.get('username')?.hasError('maxlength')" class="error">
+        {{ myForm.get('username')?.hasError('required') ? 'Username is required' : myForm.get('username')?.hasError('minlength') ? '2 characters minimum' : '20 characters maximum' }}
+    </p>  
   </div>
   <div class="field">
     <label for="email">email</label>
     <input type="text" id="email" formControlName="email" class="input">
   </div>
-  <div *ngIf="myForm.get('email')?.invalid && myForm.get('email')?.touched" class="error">
-    <p *ngIf="myForm.get('email')?.hasError('required')" class="invalid">Email is required</p>
-    <p *ngIf="myForm.get('email')?.hasError('email')" class="invalid">not valid email</p>
+  <div *ngIf="myForm.get('email')?.invalid && myForm.get('email')?.touched" class="invalid">
+    <p *ngIf="myForm.get('email')?.hasError('required') || myForm.get('email')?.hasError('email')" class="error">
+        {{ myForm.get('email')?.hasError('required') ? 'Email is required' : 'Not a valid email' }}
+    </p>  
   </div>
   <div class="field">
     <label for="password">password</label>
     <input type="password" id="password" formControlName="password" class="input">
   </div>
-  <div *ngIf="myForm.get('password')?.invalid && myForm.get('password')?.touched" class="error">
-    <p *ngIf="myForm.get('password')?.hasError('required')" class="invalid">Password is required</p>
-    <p *ngIf="myForm.get('password')?.hasError('minlength')" class="invalid">10 characters minimum</p>
+  <div *ngIf="myForm.get('password')?.invalid && myForm.get('password')?.touched" class="invalid">
+    <p *ngIf="myForm.get('password')?.hasError('required') || myForm.get('password')?.hasError('minlength')" class="error">
+        {{ myForm.get('password')?.hasError('required') ? 'Password is required' : '10 characters minimum' }}
+    </p>
   </div>
   <div class="button">
     <button type="submit" class="button">Register</button>
