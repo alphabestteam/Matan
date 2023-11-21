@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-my-outer',
@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./my-outer.component.css'],
 })
 export class MyOuterComponent {
-  total = 0;
+    mytotal: number = 0;
+
+    handleInnerPlusChange() {
+        this.mytotal += 10;
+    }
+
+    handleInnerMinusChange() {
+        this.mytotal -= 10;
+    }
 }

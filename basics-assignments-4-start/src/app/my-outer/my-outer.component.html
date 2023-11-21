@@ -1,7 +1,8 @@
-<p>outer</p>
+<p style="text-align: center;">outer</p>
 <mat-card>
   <mat-card-content>
-    <app-my-inner [(total)]="total"></app-my-inner>
+    <app-my-inner (innerPlusChange)="handleInnerPlusChange()"
+    (innerMinusChange)="handleInnerMinusChange()"></app-my-inner>
   </mat-card-content>
 </mat-card>
-<p>outer total: {{ total }}</p>
+<p style="text-align: center;">outer total: {{ mytotal }}</p>

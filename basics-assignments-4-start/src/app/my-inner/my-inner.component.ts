@@ -1,5 +1,3 @@
-// my-inner.component.ts
-
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -8,19 +6,17 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./my-inner.component.css'],
 })
 export class MyInnerComponent {
-  innerTotal = 5;
-  @Input() total: number = 0;
-  @Output() totalChange = new EventEmitter<number>();
+  @Input() innerTotal: number = 0;
+  @Output() innerPlusChange = new EventEmitter<number>();
+  @Output() innerMinusChange = new EventEmitter<number>();
 
   clickPlus() {
     this.innerTotal += 1;
 
     if (this.innerTotal > 9) {
       this.innerTotal = 0;
-      this.total += 10;
+      this.innerPlusChange.emit(this.innerTotal + 10);
     }
-
-    this.totalChange.emit(this.total); 
   }
 
   clickMinus() {
@@ -28,9 +24,7 @@ export class MyInnerComponent {
 
     if (this.innerTotal < -9) {
       this.innerTotal = 0;
-      this.total -= 10;
+      this.innerMinusChange.emit(this.innerTotal - 10);
     }
-
-    this.totalChange.emit(this.total);
   }
 }
