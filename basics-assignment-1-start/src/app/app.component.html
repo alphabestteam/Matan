@@ -12,31 +12,42 @@
     </div>
   </div>
 </div>
-<button mat-button (click)="onClick()" style="background-color: green;">Success</button>
-<button mat-button (click)="onClick1()" style="background-color: red;">Warning</button>
+<button mat-button (click)="onClickPlus()" style="background-color: green;">Success</button>
+<button mat-button (click)="onClickMinus()" style="background-color: red;">Warning</button>
 
-<div *ngIf="indicator === 1">
+<div *ngIf="pageClick">
+<ng-container *ngIf="indicator; then plus; else minus">
+</ng-container>
+</div>
+
+<ng-template #plus>
     <app-success-alert></app-success-alert>
     <div>
-        <label for="selectSuccess">Select an option</label>
-        <select id="selectSuccess" [(ngModel)]="selectedNumber" name="selectSuccess" matNativeControl>
-            <option *ngFor="let number of numbers" [value]="number">{{ number }}</option>
-        </select>
+        <mat-label for="selectSuccess">Select an option</mat-label>
+        <br>
+        <mat-form-field>
+            <mat-select id="selectSuccess" [(ngModel)]="selectedNumber" name="selectSuccess" matNativeControl>
+              <mat-option *ngFor="let number of numbers" [value]="number">{{ number }}</mat-option>
+            </mat-select>
+          </mat-form-field>
         <div *ngFor="let i of getNumberRange(selectedNumber)">
             <app-success-alert></app-success-alert>
         </div>
     </div>
-</div>
+</ng-template>
 
-<div *ngIf="indicator === 2">
+<ng-template #minus>
     <app-warning-alert></app-warning-alert>
     <div>
-        <label for="selectWarning">Select an option</label>
-        <select id="selectWarning" [(ngModel)]="selectedNumber" name="selectWarning" matNativeControl>
-            <option *ngFor="let number of numbers" [value]="number">{{ number }}</option>
-        </select>
+        <mat-label for="selectWarning">Select an option</mat-label>
+        <br>
+        <mat-form-field>
+            <mat-select id="selectWarning" [(ngModel)]="selectedNumber" name="selectWarning" matNativeControl>
+              <mat-option *ngFor="let number of numbers" [value]="number">{{ number }}</mat-option>
+            </mat-select>
+          </mat-form-field>
         <div *ngFor="let i of getNumberRange(selectedNumber)">
             <app-warning-alert></app-warning-alert>
         </div>
     </div>
-</div>
+</ng-template>
