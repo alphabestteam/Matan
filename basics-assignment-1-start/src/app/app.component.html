@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <ol>
+        <li>Create two new Components (manually or with CLI): WarningAlert and SuccessAlert</li>
+        <li>Output them beneath each other in the AppComponent</li>
+        <li>Output a warning or success message in the Components</li>
+        <li>Style the Components appropriately (maybe some red/ green text?)</li>
+      </ol>
+      <p>Use external or internal templates and styles!</p>
+      <p>Feel free to create more components, nest them into each other or play around with different types of selectors!</p>
+    </div>
+  </div>
+</div>
+<button mat-button (click)="onClickPlus()" style="background-color: green;">Success</button>
+<button mat-button (click)="onClickMinus()" style="background-color: red;">Warning</button>
+
+<div *ngIf="pageClick">
+<ng-container *ngIf="indicator; then plus; else minus">
+</ng-container>
+</div>
+
+<ng-template #plus>
+    <app-success-alert></app-success-alert>
+    <div>
+        <mat-label for="selectSuccess">Select an option</mat-label>
+        <br>
+        <mat-form-field>
+            <mat-select id="selectSuccess" [(ngModel)]="selectedNumber" name="selectSuccess" matNativeControl>
+              <mat-option *ngFor="let number of numbers" [value]="number">{{ number }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <div *ngFor="let i of getNumberRange(selectedNumber)">
+            <app-success-alert></app-success-alert>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #minus>
+    <app-warning-alert></app-warning-alert>
+    <div>
+        <mat-label for="selectWarning">Select an option</mat-label>
+        <br>
+        <mat-form-field>
+            <mat-select id="selectWarning" [(ngModel)]="selectedNumber" name="selectWarning" matNativeControl>
+              <mat-option *ngFor="let number of numbers" [value]="number">{{ number }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <div *ngFor="let i of getNumberRange(selectedNumber)">
+            <app-warning-alert></app-warning-alert>
+        </div>
+    </div>
+</ng-template>
