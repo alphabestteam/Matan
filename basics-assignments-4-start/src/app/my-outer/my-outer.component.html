@@ -1,2 +1,7 @@
+<p>outer</p>
+<mat-card>
+  <mat-card-content>
+    <app-my-inner [(total)]="total"></app-my-inner>
+  </mat-card-content>
+</mat-card>
 <p>outer total: {{ total }}</p>
-<app-my-inner (tenEvent)="onTenEventTriggered($event)"></app-my-inner>
