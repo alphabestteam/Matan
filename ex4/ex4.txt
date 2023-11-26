@@ -1,0 +1,10 @@
+commands:
+docker run -d --name my-mysql-container \
+  -e MYSQL_ALLOW_EMPTY_PASSWORD=yes \
+  -e MYSQL_DATABASE=matan \
+  -p 3306:3306 \
+  -v /Users/matangino/Desktop/matzov/Git/GitExercise/Matan/ex4:/var/lib/mysql \ 
+  mysql
+
+
+  the file is under folder named after my db and then create a new hod.ibd file

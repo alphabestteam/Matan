@@ -1,0 +1,8 @@
+command: docker load --input hello-world.tar
+
+         matangino@Matans-MacBook-Pro Matan % docker create --name hello-world hello-world
+         WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+         0ae72a56e4742420bf0882cb9332e7e813b735b02c9ac0b391298c526308a56e
+
+         matangino@Matans-MacBook-Pro Matan % docker container start hello-world
+         hello-world 

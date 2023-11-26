@@ -1,0 +1,5 @@
+commands:
+
+    docker save -o /Users/matangino/Desktop/matzov/Git/GitExercise/Matan/ex5/my_image.tar mysql
+
+    docker load -i /Users/matangino/Desktop/matzov/Git/GitExercise/Matan/ex5/my_image.tar   

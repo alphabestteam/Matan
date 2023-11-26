@@ -1,0 +1,7 @@
+commands:
+
+docker pull mysql
+
+docker run -d --name my-mysql-container -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=matan -p 3306:3306 mysql
+
+docker stop my-mysql-container

@@ -1,0 +1,6 @@
+1. Docker is a software platform that allows you to build and deploy apps fast, using standardized units called containers.
+2. Docker Image is a read-only file template with a pattern for constructing a docker container.
+3. Docker container is like a self-contained, portable box for software. It includes everything needed to run, ensuring consistency across different environments. Docker simplifies software distribution and management.
+4. the container is the running software, and the image is the set of instructions for how the container should run.
+5. Environmental vars are essentially vars you declare inside the source code (docker image) and could pass there value on the cmd command.
+6. Docker volume is a way to connect a path on your physical machine or virtual to a path on the docker container, this way you can reach files inside a container from your machine.
