@@ -1,0 +1,6 @@
+1. Docker can reuse previously built layers during image builds. layers are fetched from the cache, reducing the time required to build the image.
+
+2. I think the second option is better because it could cache more commands and save image building time later. 
+if we do it all in one command it will cache this long command that we will probably never use again.
+
+3. docker history hello-world(image name)

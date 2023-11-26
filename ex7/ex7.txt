@@ -1,0 +1,12 @@
+part a:
+    commands:
+        docker pull python
+        docker build -t app1:1 .
+        docker run --name docker_is_the_best -p 5001:5001 app1:1
+
+
+part b:
+    we created a volume
+    command:
+        docker run --name docker_is_the_best -p 5001:5001 -v /Users/matangino/Desktop/matzov/Git/GitExercise/Matan/ex7:/app/logs app1:1
+     
