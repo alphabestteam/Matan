@@ -1,0 +1,20 @@
+commands:
+    docker pull tomcat
+    docker run -it --rm -p 8080:8080 tomcat:latest
+
+
+1. We need to use port 8080 because it is the default for tomcat.
+
+2. commands to run:
+
+    docker exec -it tomcat_is_the_best /bin/bash 
+
+    mv webapps webapps2
+
+    mv webapps.dist/ webapps
+
+    exit
+
+3. Dockerfile
+
+    command: docker build -t tomcat:2 .
