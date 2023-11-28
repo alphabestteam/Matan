@@ -1,0 +1,29 @@
+1. version field: written in v3.8 of docker compose file.
+
+Mongo Service: 
+    -image: the docker image for mongo DB.
+    -container_name: the given name for the container 
+    -environment: specifies env arguments needed for the mongo setup
+    -port: maps the ports from host machine to the container
+    -volumes: config volumes for this container.(type, source and data)
+
+Mongo Express Service:
+    all written above.
+
+volumes: 
+    -all volumes share data between container's
+
+
+2. the boys didn't config ports for mongo express container.
+
+3.   ports:
+      - "8081:8081"
+
+4. docker-compose down
+
+
+PART B:
+
+1. we will need to setup an .env file. 
+2. you set .env file with name="var"
+
