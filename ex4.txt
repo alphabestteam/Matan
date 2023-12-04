@@ -1,0 +1,2 @@
+using env variables is problematic, once because if i want to change an env we need to change all yamls we made and if we insert sensitive information it could be comprized.
+We will make a ConfigMap. and secrets for sensitive information.
