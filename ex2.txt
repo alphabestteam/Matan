@@ -1,0 +1,5 @@
+We need to create services.yaml for the backend and frontend.
+
+-kubectl apply -f backend-service.yaml -n workspace
+
+-kubectl apply -f frontend-service.yaml -n workspace
