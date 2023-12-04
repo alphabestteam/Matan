@@ -18,3 +18,8 @@ spec:
         image: ghcr.io/expruc/kubernetes-gradutaion-drill/k8s-final-drill:frontend
         ports:
         - containerPort: 8080
+        env:
+                - name: PORT
+                  value: "8080" 
+                - name: BACKENDURL
+                  value: "http://backend-deployment.my-namespace.svc.cluster.local:8080"
