@@ -1,0 +1,1 @@
+We first need to enable ingress on minikube: minikube addons enable ingress
