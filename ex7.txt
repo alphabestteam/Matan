@@ -1,0 +1,34 @@
+1. kubernetes reddines probe is a kubernetes object that could manage outside traffic into a pod only when the pod is ready to serve requests.
+If the app is running but not fully ready, Kubernetes will not be able to scale it up and new deployments could not work. A readiness probe allows Kubernetes to wait until the service is active before sending it traffic.
+
+
+2. If the app is running but not fully ready, Kubernetes will not be able to scale it up and new deployments could not work. This could fail requests.
+
+3. kubectl patch deployment frontend-deployment -n workspace --type='json' -p='[
+  {
+    "op": "add",
+    "path": "/spec/template/spec/containers/0/readinessProbe",
+    "value": {
+      "httpGet": {
+        "path": "/ready",
+        "port": 8080
+      },
+      "successThreshold": 3
+    }
+  }
+]'
+
+
+kubectl patch deployment backend-deployment -n workspace --type='json' -p='[
+  {
+    "op": "add",
+    "path": "/spec/template/spec/containers/0/readinessProbe",
+    "value": {
+      "httpGet": {
+        "path": "/ready",
+        "port": 8080
+      },
+      "successThreshold": 3
+    }
+  }
+]'
