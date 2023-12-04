@@ -1,0 +1,3 @@
+1. kubectl scale deployment backend-deployment --replicas=3 -n workspace
+2. kubectl scale deployment frontend-deployment --replicas=3 -n workspace
+3. This process is "scaling", when our website is receiving higher traffic then usual we could scale our relevant pods, this way we save costs by only using more pods when we need it.
