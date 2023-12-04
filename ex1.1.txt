@@ -1,0 +1,7 @@
+1.A This object is "namespace" , there are 2 ways to create a new namespace:
+    - YAML File as shown
+    - kubectl create namespace command
+
+  B I created frontend and backend deployment yamls 
+    -kubectl apply -f frontend.yaml  
+    -kubectl apply -f backend.yaml  
