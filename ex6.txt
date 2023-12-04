@@ -1,0 +1,27 @@
+1. To see my pods resource usage we need to apply the metrics server kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.5.0/components.yaml
+And then: kubectl top pods -n workspace   
+
+backend-deployment-645d7c645b-6fhdm    1m           12Mi            
+backend-deployment-645d7c645b-dmzqf    0m           12Mi            
+backend-deployment-645d7c645b-jpx2v    0m           13Mi            
+frontend-deployment-7bcc558868-c5cr2   0m           13Mi            
+frontend-deployment-7bcc558868-q5pmq   2m           23Mi  
+
+
+2.kubectl patch deployment frontend-deployment -n workspace --type='json' -p='[
+  {"op": "add", "path": "/spec/template/spec/containers/0/resources", "value": {
+    "limits": {"cpu": "500m", "memory": "128Mi"},
+    "requests": {"cpu": "250m", "memory": "64Mi"}
+  }}
+]'
+
+kubectl patch deployment backend-deployment -n workspace --type='json' -p='[
+  {"op": "add", "path": "/spec/template/spec/containers/0/resources", "value": {
+    "limits": {"cpu": "500m", "memory": "128Mi"},
+    "requests": {"cpu": "250m", "memory": "64Mi"}
+  }}
+]'
+
+i want each of them to use max of 1 core and min of 1/4 core and double its memory on load.
+
+
