@@ -1,0 +1,7 @@
+backend-deployment-5bcd69dfd4-dkbqm (Running)
+backend-deployment-5bcd69dfd4-hbwv4 (Running)
+backend-deployment-5bcd69dfd4-sv9d5 (Running)
+frontend-deployment-68c864cbc5-8lt7w (Running)
+frontend-deployment-68c864cbc5-9fqz2 (Running)
+frontend-deployment-68c864cbc5-xchvc (Running)
+
