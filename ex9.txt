@@ -1,0 +1,13 @@
+1. kubectl apply -f serviceaccount.yaml
+
+2.kubectl patch deployment backend-deployment -n workspace --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/serviceAccountName", "value": "serviceaccount"}]'
+
+  kubectl patch deployment frontend-deployment -n workspace --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/serviceAccountName", "value": "serviceaccount"}]'
+
+
+3. If we don't configure a service account to our namespace, Kubernetes will create a service account for us named "Default" in our namespace. 
+We can fetch the details of that service account "kubectl get pods/<podname> -o yaml".
+
+
+4. Kubernetes service account let us give an identity to the pods, which could be used for authenticating pods to the Kubernetes api server, allowing the Pods to change Kubernetes objects
+   This is needed mostly for deploying applications in a cicd pipeline.
