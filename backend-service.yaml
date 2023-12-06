@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+ name: backend-service
+ namespace: workspace
+ labels:
+   app: backend-app
+spec:
+ type: NodePort
+ selector:     
+   app: backend-app
+ ports:
+   - port: 32499
+     targetPort: 8000

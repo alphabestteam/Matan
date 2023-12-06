@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: frontend-app
+  namespace: workspace
+spec:
+  replicas: 1  
+  selector:
+    matchLabels:
+      app: frontend-app
+  template:
+    metadata:
+      labels:
+        app: frontend-app
+    spec:
+      containers:
+        - name: frontend-container
+          image: ghcr.io/expruc/kubernetes-gradutaion-drill/k8s-final-drill:frontend
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: app-configmap
+            - secretRef:
+                name: app-secret

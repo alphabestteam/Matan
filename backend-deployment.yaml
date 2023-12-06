@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend-app
+  namespace: workspace
+spec:
+  replicas: 1  
+  selector:
+    matchLabels:
+      app: backend-app
+  template:
+    metadata:
+      labels:
+        app: backend-app
+    spec:
+      containers:
+        - name: backend-container
+          image: ghcr.io/expruc/kubernetes-gradutaion-drill/k8s-final-drill:backend
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: app-configmap
+
+
+      
